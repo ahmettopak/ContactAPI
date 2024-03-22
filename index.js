@@ -9,7 +9,7 @@ const port = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
-
+app.use(checkHost);
 // E-posta gönderme fonksiyonu
 function sendMail(data) {
 
@@ -35,32 +35,36 @@ function sendMail(data) {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
+            res.json(error);
         } else {
-            console.log('E-posta gönderildi: ' + info.response);
+            res.json('E-posta gönderildi: ' + info.response);
         }
     });
 }
+
+
 
 // Kullanıcıdan gelen bilgilerle e-posta gönderme
 app.post('/contact', (req, res) => {
     const userData = req.body;
 
     // Kullanıcıdan gelen bilgilerle e-posta gönderme fonksiyonunu çağırma
+    sendMail(userData);
 
-
-    if(userData.success){
-        sendMail(userData);
-
-        // Kullanıcıya yanıt gönderme
-        res.json("Success");
-    }
-    else{
-        res.status(401);
-    }
+    res.json("Success");
+  
     
 });
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
+// Middleware tanımı
+const checkHost = (req, res, next) => {
+    const requestHost = req.get('host');
+    if (requestHost === 'www.elektrolanddefence.com' || requestHost === 'www.elektrolanddefence.netlify.app') {
+        next();
+    } else {
+        res.status(403).send('Forbidden'); 
+    }
+};
