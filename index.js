@@ -47,10 +47,15 @@ app.post('/contact', (req, res) => {
     const userData = req.body;
 
     // Kullanıcıdan gelen bilgilerle e-posta gönderme fonksiyonunu çağırma
-    sendMail(userData);
 
-    // Kullanıcıya yanıt gönderme
-    res.json({ message: 'Your message has been sent successfully.' });
+
+    if(userData.success){
+        sendMail(userData);
+
+        // Kullanıcıya yanıt gönderme
+        res.json({ message: 'Your message has been sent successfully.' });
+    }
+    
 });
 
 app.listen(port, () => {
