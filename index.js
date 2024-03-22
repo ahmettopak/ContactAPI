@@ -12,6 +12,8 @@ app.use(cors());
 
 // E-posta gönderme fonksiyonu
 function sendMail(data) {
+
+    console.log(data)
     const transporter = nodemailer.createTransport({
 
         host: 'mail.elektrolanddefence.com', // SMTP sunucusu
