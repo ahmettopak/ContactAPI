@@ -9,7 +9,7 @@ const port = process.env.SERVER_PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(checkHost());
+//app.use(checkHost());
 // E-posta gönderme fonksiyonu
 function sendMail(data) {
 
