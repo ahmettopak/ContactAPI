@@ -35,7 +35,7 @@ function sendMail(data) {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            res.json(error);
+            res.status(401).json(error);
         } else {
             res.json('E-posta gönderildi: ' + info.response);
         }
