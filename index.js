@@ -53,7 +53,7 @@ app.post('/contact', (req, res) => {
         sendMail(userData);
 
         // Kullanıcıya yanıt gönderme
-        res.json({ message: 'Your message has been sent successfully.' });
+        res.json(userData);
     }
     
 });
