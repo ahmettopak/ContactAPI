@@ -53,7 +53,10 @@ app.post('/contact', (req, res) => {
         sendMail(userData);
 
         // Kullanıcıya yanıt gönderme
-        res.json(userData);
+        res.json("Success");
+    }
+    else{
+        res.status(401);
     }
     
 });
